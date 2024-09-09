@@ -11,6 +11,10 @@ This plugin can help you replace the settings.xml file under the Maven conf fold
     从第一个目录中选择文件，替换 Maven 下 conf 中的 settings.xml 文件，并且重命名为 settings.xml <br/>
     <br/>
     
+<img src="img/Snipaste_2024-09-09_19-21-30.png" width="400px" />
+
+<img src="img/Snipaste_2024-09-09_19-22-03.png" width="400px" />    
+    
  <img src="img/Snipaste_2024-09-09_18-35-59.png" width="400px" />
  
  <img src="img/Snipaste_2024-09-09_19-09-44.png" width="400px" />
