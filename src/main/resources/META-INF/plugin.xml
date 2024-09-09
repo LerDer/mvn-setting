@@ -1,0 +1,39 @@
+<idea-plugin>
+    <id>com.wd.msu</id>
+    <name>mvn-settings</name>
+    <vendor email="lerder@foxmail.com" url="">lww</vendor>
+
+    <description>
+    <![CDATA[
+    修改maven的 settings.xml 文件。 <br/>
+    首先设置两个目录： <br/>
+    一个是存放各种 settings.xml 文件的目录路径。 <br/>
+    一个是 Maven 程序下 conf 文件夹的路径。 <br/>
+    从第一个目录中选择文件，替换 Maven 下 conf 中的 settings.xml 文件，并且重命名为 settings.xml <br/>
+    <br/>
+    author: lww <br/>
+    email: lerder@foxmail.com <br/>
+    ]]>
+    </description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="MavenSettingsHandler" class="com.wd.msu.MavenSettingsHandlerAction" text="mvn-settings"
+                description="MavenSettingsHandler" icon="/icon/logo.png">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <add-to-group group-id="MainToolBar" anchor="last"/>
+        </action>
+    </actions>
+
+    <idea-version since-build="191"/>
+</idea-plugin>
