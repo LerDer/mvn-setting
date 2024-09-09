@@ -36,5 +36,5 @@ intellij {
 patchPluginXml {
     changeNotes """
      version 1.0.0: <br>
-      <em>管理 maven settings.xml文件，快速切换</em>"""
+      <em>To manage the settings.xml file of Maven</em>"""
 }
