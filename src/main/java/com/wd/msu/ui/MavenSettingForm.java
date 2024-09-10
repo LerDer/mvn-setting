@@ -93,22 +93,31 @@ public class MavenSettingForm extends JDialog {
 			baseDir = project.getBaseDir();
 		}
 		final VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择Maven conf文件夹路径", baseDir, baseDir);
-		if (null != vf) {
-			this.confPath.setText(vf.getPath());
+		if (vf == null || !vf.isDirectory()) {
+			JOptionPane.showMessageDialog(this.contentPane, "请选择文件夹！", "错误", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
-		//String confPath1 = confPath.getText();
+		this.confPath.setText(vf.getPath());
 	}
 
 	private void onSelectSet() {
+		//JFileChooser jFileChooser = JFileChooserUtil.getInstance();
+		//File selectedFile = jFileChooser.getSelectedFile();
+		//String path = selectedFile.getPath();
+		//System.out.println("path = " + path);
+		//this.setPath.setText(path);
 		FileChooseUtil uiComponentFacade = FileChooseUtil.getInstance(project);
 		VirtualFile baseDir = null;
 		if (project != null) {
 			baseDir = project.getBaseDir();
 		}
-		final VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择settings.xml文件存储路径", baseDir, baseDir);
-		if (null != vf) {
-			this.setPath.setText(vf.getPath());
+		VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择settings.xml文件存储路径", baseDir, baseDir);
+		if (vf == null || !vf.isDirectory()) {
+			JOptionPane.showMessageDialog(this.contentPane, "请选择文件夹！", "错误", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
+		this.setPath.setText(vf.getPath());
+
 		String setPath1 = setPath.getText();
 		File setFile = new File(setPath1);
 		File[] files = setFile.listFiles();
