@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.wd'
-version '1.0.0'
+version '1.0.1'
 
 sourceCompatibility = 1.8
 
@@ -35,6 +35,14 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
+     version 1.0.1: <br>
+     1. Fix the size of the window <br/>
+     2. Add scrollbar to file list <br/>
+     3. The FileChooser will open the set folder after setting. <br/>
+     4. Validate the file type which was chosen <br/>
+     
+     <br>
      version 1.0.0: <br>
-      <em>To manage the settings.xml file of Maven</em>"""
+     1. To manage the settings.xml file of Maven <br/>
+      """
 }
