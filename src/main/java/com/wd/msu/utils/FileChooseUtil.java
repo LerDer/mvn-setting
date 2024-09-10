@@ -31,9 +31,9 @@ public class FileChooseUtil {
         if (title == null) {
             return null;
         }
-        final FileChooserDescriptor descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor();
+        FileChooserDescriptor descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor();
         descriptor.setTitle(title);
-        if (null != roots) {
+        if (roots != null) {
             descriptor.setRoots(roots);
         }
         return FileChooser.chooseFile(descriptor, this.project, toSelect);

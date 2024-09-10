@@ -2,6 +2,7 @@ package com.wd.msu.ui;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.wd.msu.utils.CommonUtil;
 import com.wd.msu.utils.FileChooseUtil;
 import java.awt.AWTEvent;
@@ -92,8 +93,16 @@ public class MavenSettingForm extends JDialog {
 		if (project != null) {
 			baseDir = project.getBaseDir();
 		}
+		String existPath = this.confPath.getText();
+		if (StringUtils.isNotBlank(existPath)) {
+			VirtualFileManager instance = VirtualFileManager.getInstance();
+			baseDir = instance.findFileByUrl("file://" + existPath);
+		}
 		final VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择Maven conf文件夹路径", baseDir, baseDir);
-		if (vf == null || !vf.isDirectory()) {
+		if (vf == null) {
+			return;
+		}
+		if (!vf.isDirectory()) {
 			JOptionPane.showMessageDialog(this.contentPane, "请选择文件夹！", "错误", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -101,18 +110,21 @@ public class MavenSettingForm extends JDialog {
 	}
 
 	private void onSelectSet() {
-		//JFileChooser jFileChooser = JFileChooserUtil.getInstance();
-		//File selectedFile = jFileChooser.getSelectedFile();
-		//String path = selectedFile.getPath();
-		//System.out.println("path = " + path);
-		//this.setPath.setText(path);
 		FileChooseUtil uiComponentFacade = FileChooseUtil.getInstance(project);
 		VirtualFile baseDir = null;
 		if (project != null) {
 			baseDir = project.getBaseDir();
 		}
+		String existPath = this.setPath.getText();
+		if (StringUtils.isNotBlank(existPath)) {
+			VirtualFileManager instance = VirtualFileManager.getInstance();
+			baseDir = instance.findFileByUrl("file://" + existPath);
+		}
 		VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择settings.xml文件存储路径", baseDir, baseDir);
-		if (vf == null || !vf.isDirectory()) {
+		if (vf == null) {
+			return;
+		}
+		if (!vf.isDirectory()) {
 			JOptionPane.showMessageDialog(this.contentPane, "请选择文件夹！", "错误", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
