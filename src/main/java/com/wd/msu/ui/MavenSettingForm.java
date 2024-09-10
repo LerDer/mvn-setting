@@ -19,7 +19,6 @@ import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import org.apache.commons.io.FileUtils;
@@ -37,12 +36,12 @@ public class MavenSettingForm extends JDialog {
 	private JButton setPathChoose;
 	private JButton confPathChoose;
 	private JList<File> fileList;
-	private JScrollBar scrollBar1;
 
 	public MavenSettingForm(Project project) {
-		this.project = project;
 		setContentPane(contentPane);
+		setResizable(false);
 		setModal(true);
+		this.project = project;
 		getRootPane().setDefaultButton(change);
 
 		change.addActionListener(e -> onOK());
@@ -120,6 +119,11 @@ public class MavenSettingForm extends JDialog {
 	private void onOK() {
 		CommonUtil.initConfig(setPath, confPath);
 		File selectedValue = this.fileList.getSelectedValue();
+		String name = selectedValue.getName();
+		if (!name.endsWith(".xml")) {
+			JOptionPane.showMessageDialog(this.contentPane, "请选择xml类型文件！", "错误", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		String preConf = this.confPath.getText() + File.separator + "settings.xml";
 		File prfConfFile = new File(preConf);
 		if (prfConfFile.exists()) {
