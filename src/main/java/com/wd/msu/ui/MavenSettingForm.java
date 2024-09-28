@@ -56,12 +56,10 @@ public class MavenSettingForm extends JDialog {
 				KeyEvent evt = (KeyEvent) e;
 				if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					onCancel();
-					//System.exit(0);
 				}
 			}
 		}, AWTEvent.KEY_EVENT_MASK);
 
-		// call onCancel() when cross is clicked
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -70,7 +68,6 @@ public class MavenSettingForm extends JDialog {
 			}
 		});
 
-		//MSHConfig config = MSHConfig.getInstance(project);
 		String setPath = CommonUtil.getSetPath();
 		String confPath = CommonUtil.getConfPath();
 		if (StringUtils.isNotBlank(setPath)) {
