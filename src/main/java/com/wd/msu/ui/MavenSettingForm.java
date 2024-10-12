@@ -1,5 +1,6 @@
 package com.wd.msu.ui;
 
+import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
@@ -7,7 +8,10 @@ import com.wd.msu.utils.CommonUtil;
 import com.wd.msu.utils.FileChooseUtil;
 import java.awt.AWTEvent;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -37,6 +41,7 @@ public class MavenSettingForm extends JDialog {
 	private JButton setPathChoose;
 	private JButton confPathChoose;
 	private JList<File> fileList;
+	private JButton mvnSetting;
 
 	public MavenSettingForm(Project project) {
 		setContentPane(contentPane);
@@ -82,6 +87,9 @@ public class MavenSettingForm extends JDialog {
 
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+		mvnSetting.addActionListener(e -> {
+			ShowSettingsUtil.getInstance().showSettingsDialog(project, "Gradle");
+		});
 	}
 
 	private void onSelectConf() {
