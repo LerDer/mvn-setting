@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.wd'
-version '1.0.1'
+version '1.0.2'
 
 sourceCompatibility = 1.8
 
@@ -35,6 +35,14 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
+     version 1.0.2: <br>
+     1. Add a button for opening the Maven settings of Idea
+     2. Add a button to open the settings.xml folder
+     3. Add a button for opening the conf folder of Maven
+     4. Replace the word with icons
+     
+     <br>
+     
      version 1.0.1: <br>
      1. Fix the size of the window <br/>
      2. Add scrollbar to file list <br/>
