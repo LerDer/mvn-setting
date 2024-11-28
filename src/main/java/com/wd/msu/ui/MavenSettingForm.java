@@ -7,14 +7,20 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.wd.msu.utils.CommonUtil;
 import com.wd.msu.utils.FileChooseUtil;
 import java.awt.AWTEvent;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -31,14 +37,16 @@ public class MavenSettingForm extends JDialog {
 	private Project project;
 
 	private JPanel contentPane;
-	private JButton change;
-	private JButton cancel;
 	private JTextField setPath;
 	private JTextField confPath;
+	private JList<File> fileList;
+	private JButton change;
+	private JButton cancel;
 	private JButton setPathChoose;
 	private JButton confPathChoose;
-	private JList<File> fileList;
 	private JButton mvnSetting;
+	private JButton fileLocation1;
+	private JButton fileLocation2;
 
 	public MavenSettingForm(Project project) {
 		setContentPane(contentPane);
@@ -47,11 +55,177 @@ public class MavenSettingForm extends JDialog {
 		this.project = project;
 		getRootPane().setDefaultButton(change);
 
+		change.setContentAreaFilled(false);//除去默认的背景填充
+		change.setBorderPainted(false);//不打印边框
+		change.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				super.mouseEntered(e);
+				change.setIcon(new ImageIcon(getClass().getResource("/icon/ok_enter.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				super.mouseExited(e);
+				change.setIcon(new ImageIcon(getClass().getResource("/icon/ok.png")));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(e);
+				change.setIcon(new ImageIcon(getClass().getResource("/icon/ok.png")));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(e);
+				change.setIcon(new ImageIcon(getClass().getResource("/icon/ok_enter.png")));
+			}
+		});
 		change.addActionListener(e -> onOK());
 
+		cancel.setContentAreaFilled(false);
+		cancel.setBorderPainted(false);
+		cancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				super.mouseEntered(e);
+				cancel.setIcon(new ImageIcon(getClass().getResource("/icon/cancel_enter.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				super.mouseExited(e);
+				cancel.setIcon(new ImageIcon(getClass().getResource("/icon/cancel.png")));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(e);
+				cancel.setIcon(new ImageIcon(getClass().getResource("/icon/cancel.png")));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(e);
+				cancel.setIcon(new ImageIcon(getClass().getResource("/icon/cancel_enter.png")));
+			}
+		});
 		cancel.addActionListener(e -> onCancel());
+
+		setPathChoose.setContentAreaFilled(false);
+		setPathChoose.setBorderPainted(false);
+		setPathChoose.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				super.mouseEntered(e);
+				setPathChoose.setIcon(new ImageIcon(getClass().getResource("/icon/selectall_enter.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				super.mouseExited(e);
+				setPathChoose.setIcon(new ImageIcon(getClass().getResource("/icon/selectall.png")));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(e);
+				setPathChoose.setIcon(new ImageIcon(getClass().getResource("/icon/selectall.png")));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(e);
+				setPathChoose.setIcon(new ImageIcon(getClass().getResource("/icon/selectall_enter.png")));
+			}
+		});
 		setPathChoose.addActionListener(e -> onSelectSet());
+
+		confPathChoose.setContentAreaFilled(false);
+		confPathChoose.setBorderPainted(false);
+		confPathChoose.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				super.mouseEntered(e);
+				confPathChoose.setIcon(new ImageIcon(getClass().getResource("/icon/selectall_enter.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				super.mouseExited(e);
+				confPathChoose.setIcon(new ImageIcon(getClass().getResource("/icon/selectall.png")));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(e);
+				confPathChoose.setIcon(new ImageIcon(getClass().getResource("/icon/selectall.png")));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(e);
+				confPathChoose.setIcon(new ImageIcon(getClass().getResource("/icon/selectall_enter.png")));
+			}
+		});
 		confPathChoose.addActionListener(e -> onSelectConf());
+
+		fileLocation1.setContentAreaFilled(false);
+		fileLocation1.setBorderPainted(false);
+		fileLocation1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				super.mouseEntered(e);
+				fileLocation1.setIcon(new ImageIcon(getClass().getResource("/icon/location_enter.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				super.mouseExited(e);
+				fileLocation1.setIcon(new ImageIcon(getClass().getResource("/icon/location.png")));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(e);
+				fileLocation1.setIcon(new ImageIcon(getClass().getResource("/icon/location.png")));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(e);
+				fileLocation1.setIcon(new ImageIcon(getClass().getResource("/icon/location_enter.png")));
+			}
+		});
+
+		fileLocation2.setContentAreaFilled(false);
+		fileLocation2.setBorderPainted(false);
+		fileLocation2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				super.mouseEntered(e);
+				fileLocation2.setIcon(new ImageIcon(getClass().getResource("/icon/location_enter.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				super.mouseExited(e);
+				fileLocation2.setIcon(new ImageIcon(getClass().getResource("/icon/location.png")));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(e);
+				fileLocation2.setIcon(new ImageIcon(getClass().getResource("/icon/location.png")));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(e);
+				fileLocation2.setIcon(new ImageIcon(getClass().getResource("/icon/location_enter.png")));
+			}
+		});
 
 		Toolkit.getDefaultToolkit().addAWTEventListener(e -> {
 			if (e.getID() == KeyEvent.KEY_PRESSED) {
@@ -84,10 +258,40 @@ public class MavenSettingForm extends JDialog {
 
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+		mvnSetting.setContentAreaFilled(false);
+		mvnSetting.setBorderPainted(false);
+		mvnSetting.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				super.mouseEntered(e);
+				mvnSetting.setIcon(new ImageIcon(getClass().getResource("/icon/set_enter.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				super.mouseExited(e);
+				mvnSetting.setIcon(new ImageIcon(getClass().getResource("/icon/set.png")));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(e);
+				mvnSetting.setIcon(new ImageIcon(getClass().getResource("/icon/set.png")));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				super.mouseReleased(e);
+				mvnSetting.setIcon(new ImageIcon(getClass().getResource("/icon/set_enter.png")));
+			}
+		});
 		mvnSetting.addActionListener(e -> {
 			ShowSettingsUtil.getInstance().showSettingsDialog(project, "Maven");
-
+			//this.setVisible(false);
 		});
+		fileLocation1.addActionListener(e -> openFileLocation(this.setPath.getText().trim()));
+		fileLocation2.addActionListener(e -> openFileLocation(this.confPath.getText().trim()));
 	}
 
 	private void onSelectConf() {
@@ -166,6 +370,33 @@ public class MavenSettingForm extends JDialog {
 	private void onCancel() {
 		// add your code here if necessary
 		dispose();
+	}
+
+	private static void openFileLocation(String path) {
+		File file = new File(path);
+		if (file.exists()) {
+			Process process = null;
+			try {
+				String property = System.getProperties().getProperty("os.name");
+				if (property.contains("Windows")) {
+					process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", "explorer /select, '" + path + "'"});
+				} else if (property.contains("Mac")) {
+					process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", "open -R '" + path + "'"});
+				} else {
+					process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", "xdg-open '" + path + "'"});
+				}
+				// 获取标准输入流 process.getInputStream()
+				BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					System.out.println(line);
+				}
+				// waitFor 阻塞等待 异步进程结束，并返回执行状态，0代表命令执行正常结束。
+				System.out.println(process.waitFor());
+			} catch (Exception ex) {
+				throw new RuntimeException(ex);
+			}
+		}
 	}
 
 }
