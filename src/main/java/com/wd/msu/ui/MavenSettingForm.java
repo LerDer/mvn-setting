@@ -7,7 +7,6 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.wd.msu.utils.CommonUtil;
 import com.wd.msu.utils.FileChooseUtil;
 import java.awt.AWTEvent;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -55,8 +54,8 @@ public class MavenSettingForm extends JDialog {
 		this.project = project;
 		getRootPane().setDefaultButton(change);
 
-		change.setContentAreaFilled(false);//除去默认的背景填充
-		change.setBorderPainted(false);//不打印边框
+		//change.setContentAreaFilled(false);//除去默认的背景填充
+		//change.setBorderPainted(false);//不打印边框
 		change.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -84,8 +83,8 @@ public class MavenSettingForm extends JDialog {
 		});
 		change.addActionListener(e -> onOK());
 
-		cancel.setContentAreaFilled(false);
-		cancel.setBorderPainted(false);
+		//cancel.setContentAreaFilled(false);
+		//cancel.setBorderPainted(false);
 		cancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -113,8 +112,8 @@ public class MavenSettingForm extends JDialog {
 		});
 		cancel.addActionListener(e -> onCancel());
 
-		setPathChoose.setContentAreaFilled(false);
-		setPathChoose.setBorderPainted(false);
+		//setPathChoose.setContentAreaFilled(false);
+		//setPathChoose.setBorderPainted(false);
 		setPathChoose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -142,8 +141,8 @@ public class MavenSettingForm extends JDialog {
 		});
 		setPathChoose.addActionListener(e -> onSelectSet());
 
-		confPathChoose.setContentAreaFilled(false);
-		confPathChoose.setBorderPainted(false);
+		//confPathChoose.setContentAreaFilled(false);
+		//confPathChoose.setBorderPainted(false);
 		confPathChoose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -171,8 +170,8 @@ public class MavenSettingForm extends JDialog {
 		});
 		confPathChoose.addActionListener(e -> onSelectConf());
 
-		fileLocation1.setContentAreaFilled(false);
-		fileLocation1.setBorderPainted(false);
+		//fileLocation1.setContentAreaFilled(false);
+		//fileLocation1.setBorderPainted(false);
 		fileLocation1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -198,9 +197,10 @@ public class MavenSettingForm extends JDialog {
 				fileLocation1.setIcon(new ImageIcon(getClass().getResource("/icon/location_enter.png")));
 			}
 		});
+		fileLocation1.addActionListener(e -> openFileLocation(this.setPath.getText().trim()));
 
-		fileLocation2.setContentAreaFilled(false);
-		fileLocation2.setBorderPainted(false);
+		//fileLocation2.setContentAreaFilled(false);
+		//fileLocation2.setBorderPainted(false);
 		fileLocation2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -226,6 +226,7 @@ public class MavenSettingForm extends JDialog {
 				fileLocation2.setIcon(new ImageIcon(getClass().getResource("/icon/location_enter.png")));
 			}
 		});
+		fileLocation2.addActionListener(e -> openFileLocation(this.confPath.getText().trim()));
 
 		Toolkit.getDefaultToolkit().addAWTEventListener(e -> {
 			if (e.getID() == KeyEvent.KEY_PRESSED) {
@@ -259,8 +260,8 @@ public class MavenSettingForm extends JDialog {
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-		mvnSetting.setContentAreaFilled(false);
-		mvnSetting.setBorderPainted(false);
+		//mvnSetting.setContentAreaFilled(false);
+		//mvnSetting.setBorderPainted(false);
 		mvnSetting.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -290,8 +291,6 @@ public class MavenSettingForm extends JDialog {
 			ShowSettingsUtil.getInstance().showSettingsDialog(project, "Maven");
 			//this.setVisible(false);
 		});
-		fileLocation1.addActionListener(e -> openFileLocation(this.setPath.getText().trim()));
-		fileLocation2.addActionListener(e -> openFileLocation(this.confPath.getText().trim()));
 	}
 
 	private void onSelectConf() {
