@@ -7,6 +7,7 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.wd.msu.utils.CommonUtil;
 import com.wd.msu.utils.FileChooseUtil;
 import java.awt.AWTEvent;
+import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -304,7 +305,7 @@ public class MavenSettingForm extends JDialog {
 			VirtualFileManager instance = VirtualFileManager.getInstance();
 			baseDir = instance.findFileByUrl("file://" + existPath);
 		}
-		final VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择Maven conf文件夹路径", baseDir, baseDir);
+		final VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择Maven conf文件夹路径", baseDir, null);
 		if (vf == null) {
 			return;
 		}
@@ -326,7 +327,7 @@ public class MavenSettingForm extends JDialog {
 			VirtualFileManager instance = VirtualFileManager.getInstance();
 			baseDir = instance.findFileByUrl("file://" + existPath);
 		}
-		VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择settings.xml文件存储路径", baseDir, baseDir);
+		VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择settings.xml文件存储路径", baseDir, null);
 		if (vf == null) {
 			return;
 		}
@@ -374,28 +375,11 @@ public class MavenSettingForm extends JDialog {
 	private static void openFileLocation(String path) {
 		File file = new File(path);
 		if (file.exists()) {
-			Process process = null;
 			try {
-				String property = System.getProperties().getProperty("os.name");
-				if (property.contains("Windows")) {
-					process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", "explorer /select, '" + path + "'"});
-				} else if (property.contains("Mac")) {
-					process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", "open -R '" + path + "'"});
-				} else {
-					process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", "xdg-open '" + path + "'"});
-				}
-				// 获取标准输入流 process.getInputStream()
-				BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-				String line = null;
-				while ((line = reader.readLine()) != null) {
-					System.out.println(line);
-				}
-				// waitFor 阻塞等待 异步进程结束，并返回执行状态，0代表命令执行正常结束。
-				System.out.println(process.waitFor());
+				Desktop.getDesktop().open(file);
 			} catch (Exception ex) {
 				throw new RuntimeException(ex);
 			}
 		}
 	}
-
 }
