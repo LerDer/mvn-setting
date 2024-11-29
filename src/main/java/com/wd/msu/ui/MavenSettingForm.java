@@ -372,7 +372,7 @@ public class MavenSettingForm extends JDialog {
 		dispose();
 	}
 
-	private static void openFileLocation(String path) {
+	private void openFileLocation(String path) {
 		File file = new File(path);
 		if (file.exists()) {
 			try {
