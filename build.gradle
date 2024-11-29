@@ -36,10 +36,10 @@ intellij {
 patchPluginXml {
     changeNotes """
      version 1.0.2: <br>
-     1. Add a button for opening the Maven settings of Idea
-     2. Add a button to open the settings.xml folder
-     3. Add a button for opening the conf folder of Maven
-     4. Replace the word with icons
+     1. Add a button for opening the Maven settings of Idea <br/>
+     2. Add a button to open the settings.xml folder <br/>
+     3. Add a button for opening the conf folder of Maven <br/>
+     4. Replace the word with icons <br/>
      
      <br>
      
