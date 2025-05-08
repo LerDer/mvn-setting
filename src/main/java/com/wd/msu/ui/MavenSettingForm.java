@@ -310,7 +310,7 @@ public class MavenSettingForm extends JDialog {
 			VirtualFileManager instance = VirtualFileManager.getInstance();
 			baseDir = instance.findFileByUrl("file://" + existPath);
 		}
-		final VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择Maven conf文件夹路径", baseDir, null);
+		final VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择Maven conf文件夹路径", baseDir);
 		if (vf == null) {
 			return;
 		}
@@ -332,7 +332,7 @@ public class MavenSettingForm extends JDialog {
 			VirtualFileManager instance = VirtualFileManager.getInstance();
 			baseDir = instance.findFileByUrl("file://" + existPath);
 		}
-		VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择settings.xml文件存储路径", baseDir, null);
+		VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("选择settings.xml文件存储路径", baseDir);
 		if (vf == null) {
 			return;
 		}
@@ -380,8 +380,6 @@ public class MavenSettingForm extends JDialog {
 	}
 
 	private void openFileLocation(String path) {
-		DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
-		System.out.println("session = " + session);
 		File file = new File(path);
 		if (file.exists()) {
 			try {
