@@ -1,11 +1,5 @@
 package com.wd.msu.ui;
 
-import com.intellij.openapi.options.ShowSettingsUtil;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileManager;
-import com.wd.msu.utils.CommonUtil;
-import com.wd.msu.utils.FileChooseUtil;
 import java.awt.AWTEvent;
 import java.awt.Desktop;
 import java.awt.Toolkit;
@@ -14,12 +8,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Vector;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -29,8 +22,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
+import org.eclipse.aether.DefaultRepositorySystemSession;
+import org.jetbrains.idea.maven.project.MavenProjectsManager;
+
+import com.intellij.openapi.options.ShowSettingsUtil;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
+import com.wd.msu.utils.CommonUtil;
+import com.wd.msu.utils.FileChooseUtil;
 
 public class MavenSettingForm extends JDialog {
 
@@ -47,6 +51,7 @@ public class MavenSettingForm extends JDialog {
 	private JButton mvnSetting;
 	private JButton fileLocation1;
 	private JButton fileLocation2;
+	private MavenProjectsManager mavenProjectsManager;
 
 	public MavenSettingForm(Project project) {
 		setContentPane(contentPane);
@@ -346,6 +351,7 @@ public class MavenSettingForm extends JDialog {
 
 	private void onOK() {
 		CommonUtil.initConfig(setPath, confPath);
+		mavenProjectsManager = MavenProjectsManager.getInstance(project);
 		File selectedValue = this.fileList.getSelectedValue();
 		String name = selectedValue.getName();
 		if (!name.endsWith(".xml")) {
@@ -364,6 +370,7 @@ public class MavenSettingForm extends JDialog {
 			e.printStackTrace();
 		}
 		JOptionPane.showMessageDialog(this.contentPane, "修改成功！", "成功", JOptionPane.INFORMATION_MESSAGE);
+		mavenProjectsManager.forceUpdateAllProjectsOrFindAllAvailablePomFiles();
 		dispose();
 	}
 
@@ -373,6 +380,8 @@ public class MavenSettingForm extends JDialog {
 	}
 
 	private void openFileLocation(String path) {
+		DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
+		System.out.println("session = " + session);
 		File file = new File(path);
 		if (file.exists()) {
 			try {

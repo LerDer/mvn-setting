@@ -31,7 +31,8 @@ dependencies {
 intellij {
     version '2019.1.4'
     intellij.updateSinceUntilBuild false
-    localPath '/Users/lww/Downloads/ideaIC-2019.1.4'
+    plugins = ['maven']
+    localPath '/Users/lww/Downloads/ideaJar/ideaIU-2019.1.4'
 }
 patchPluginXml {
     changeNotes """
