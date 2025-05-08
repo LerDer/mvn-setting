@@ -25,8 +25,6 @@ import javax.swing.KeyStroke;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
-import org.eclipse.aether.DefaultRepositorySystemSession;
 import org.jetbrains.idea.maven.project.MavenProjectsManager;
 
 import com.intellij.openapi.options.ShowSettingsUtil;
