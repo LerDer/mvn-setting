@@ -40,7 +40,7 @@
     <actions>
         <!-- Add your actions here -->
         <action id="MavenSettingsHandler" class="com.wd.msu.MavenSettingsHandlerAction" text="mvn-settings"
-                description="MavenSettingsHandler" icon="/icon/logo.png">
+                description="MavenSettingsHandler" icon="/icons/logo.png">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
             <add-to-group group-id="MainToolBar" anchor="last"/>
         </action>

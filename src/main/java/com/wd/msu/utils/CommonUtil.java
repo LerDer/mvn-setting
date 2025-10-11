@@ -16,10 +16,7 @@ public class CommonUtil {
 	 */
 	public static void init(AnActionEvent e) {
 		MavenSettingForm dialog = new MavenSettingForm(e.getProject());
-		dialog.pack();
-		//设置窗口居中
-		dialog.setLocationRelativeTo(null);
-		dialog.setVisible(true);
+		dialog.show();
 	}
 
 	public static void initConfig(JTextField setPath, JTextField confPath) {
